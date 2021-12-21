@@ -1,6 +1,7 @@
 .vscode/
 Include/
 Lib/
+RecipeParsers/__pycache__/
 Scripts/
 ingredient.json
 page.html

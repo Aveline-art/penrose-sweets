@@ -1,3 +1,5 @@
+import sys
+
 from bs4 import BeautifulSoup
 from RecipeParsers import bingingwithbabish, cookieandkate, generalparse, gordonramsay, justonecookbook, maangchi, seriouseats, tasty, woksoflife
 import requests
@@ -14,17 +16,30 @@ parsers = {
     'thewoksoflife.com': lambda x: woksoflife.parse(x),
 }
 
-URL = "https://www.bingingwithbabish.com/recipes/2017/6/13/freddys-ribs-inspired-by-house-of-cards"
+def main(argvs):
+    # TODO check that all argvs are links
+    grocery_list = []
+    for url in argvs:
+        grocery_list += retrieve_ingredients(url)
+    
+    for item in grocery_list:
+        print(item)
 
-page = requests.get(URL, headers={
-    'User-Agent': 'Mozilla/5.0'
-})
-domain = urlparse(URL).netloc
-soup = BeautifulSoup(page.content, "html.parser")
+def retrieve_ingredients(url):
+    page = requests.get(url, headers={
+        'User-Agent': 'Mozilla/5.0'
+    })
+    domain = urlparse(url).netloc
+    soup = BeautifulSoup(page.content, "html.parser")
 
-if domain in parsers.keys():
-    ingredients = parsers[domain](soup)
-else:
-    ingredients = generalparse.parse(soup)
+    if domain in parsers.keys():
+        ingredients = parsers[domain](soup)
+    else:
+        ingredients = generalparse.parse(soup)
+    
+    # TODO check that there is a result
+    return ingredients
 
-print(ingredients)
+if __name__ == "__main__":
+    # calling the main function
+    main(sys.argv[1:])
