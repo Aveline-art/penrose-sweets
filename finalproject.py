@@ -1,5 +1,5 @@
 from bs4 import BeautifulSoup
-from RecipeParsers import bingingwithbabish, cookieandkate, gordonramsay, justonecookbook, maangchi, seriouseats, tasty, woksoflife
+from RecipeParsers import bingingwithbabish, cookieandkate, generalparse, gordonramsay, justonecookbook, maangchi, seriouseats, tasty, woksoflife
 import requests
 from urllib.parse import urlparse
 
@@ -21,6 +21,10 @@ page = requests.get(URL, headers={
 })
 domain = urlparse(URL).netloc
 soup = BeautifulSoup(page.content, "html.parser")
-ingredients = parsers[domain](soup)
+
+if domain in parsers.keys():
+    ingredients = parsers[domain](soup)
+else:
+    ingredients = generalparse.parse(soup)
 
 print(ingredients)
