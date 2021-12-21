@@ -1,0 +1,9 @@
+.vscode/
+Include/
+Lib/
+Scripts/
+ingredient.json
+page.html
+pyvenv.cfg
+scripts.txt
+test.py
