@@ -1,6 +1,7 @@
 import sys
 
 from bs4 import BeautifulSoup
+from datetime import datetime
 from RecipeParsers import bingingwithbabish, cookieandkate, generalparse, gordonramsay, justonecookbook, maangchi, seriouseats, tasty, woksoflife
 import requests
 from urllib.parse import urlparse
@@ -20,10 +21,17 @@ def main(argvs):
     # TODO check that all argvs are links
     grocery_list = []
     for url in argvs:
-        grocery_list += retrieve_ingredients(url)
+        ingredients = retrieve_ingredients(url)
+        if ingredients:
+            grocery_list += retrieve_ingredients(url)
+        else:
+            print(f'Could not find ingredients for {url}.')
     
-    for item in grocery_list:
-        print(item)
+    filename = f'grocery_list_{datetime.now().strftime("%B-%d-%Y")}.txt'
+    
+    with open(filename, 'w', encoding='utf8') as f:
+        for item in grocery_list:
+            f.write(f'{item}\n')
 
 def retrieve_ingredients(url):
     page = requests.get(url, headers={

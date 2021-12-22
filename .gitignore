@@ -3,6 +3,7 @@ Include/
 Lib/
 RecipeParsers/__pycache__/
 Scripts/
+grocery_list_*.txt
 ingredient.json
 page.html
 pyvenv.cfg
