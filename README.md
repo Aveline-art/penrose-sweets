@@ -2,10 +2,6 @@
 #### Video Demo:  <URL HERE>
 #### Description:
 
-penrose-sweets is a commandline program made in python.
+penrose-sweets is a commandline program that compiles ingredient lists from online recipes into a single grocery list. Written in Python, it takes advantage of BeautifulSoup4 to comb through a website for either a JSON file embedded in a `<script>` tag or for key words, such as `Ingredients` that clues for an ingredient list HTML object (usually in `<ul>` tags).
 
-
-
-If unfamiliar with Markdown syntax, you might find GitHub’s Basic Writing and Formatting Syntax helpful.
-
-Your README.md file should be minimally multiple paragraphs in length, and should explain what your project is, what each of the files you wrote for the project contains and does, and if you debated certain design choices, explaining why you made them. Ensure you allocate sufficient time and energy to writing a README.md that you are proud of and that documents your project thoroughly. Be proud of it!
+Most of the recipes are parsed through Python programs in the RecipeParsers directory, with each file named after a food blog domain, such as `justonecookbook` or `cookieandkate`. Each file is a specific parser for that domain, since the way the HTML code is structed varies, even if slightly, across domains. If a domain is unsupported, the parser can still support parsing through a general parser, which might return nothing, or an uncurrated list.
