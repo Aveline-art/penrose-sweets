@@ -18,35 +18,46 @@ parsers = {
 }
 
 def main(argvs):
-    # TODO check that all argvs are links
     grocery_list = []
+    url_list = []
     for url in argvs:
         ingredients = retrieve_ingredients(url)
         if ingredients:
             grocery_list += retrieve_ingredients(url)
+            url_list.append(url)
         else:
             print(f'Could not find ingredients for {url}.')
     
     filename = f'grocery_list_{datetime.now().strftime("%B-%d-%Y")}.txt'
     
     with open(filename, 'w', encoding='utf8') as f:
+        f.write('Grocery List\n')
+        f.write('---\n')
         for item in grocery_list:
             f.write(f'{item}\n')
+        f.write('\n')
+        f.write('Recipe Links\n')
+        f.write('---\n')
+        for url in url_list:
+            f.write(f'{url}\n')
+            
 
 def retrieve_ingredients(url):
-    page = requests.get(url, headers={
+    response = requests.get(url, headers={
         'User-Agent': 'Mozilla/5.0'
     })
-    domain = urlparse(url).netloc
-    soup = BeautifulSoup(page.content, "html.parser")
 
-    if domain in parsers.keys():
-        ingredients = parsers[domain](soup)
+    if response.ok:
+        domain = urlparse(url).netloc
+        soup = BeautifulSoup(response.content, "html.parser")
+
+        if domain in parsers.keys():
+            ingredients = parsers[domain](soup)
+        else:
+            ingredients = generalparse.parse(soup)
+        return ingredients
     else:
-        ingredients = generalparse.parse(soup)
-    
-    # TODO check that there is a result
-    return ingredients
+        return None
 
 if __name__ == "__main__":
     # calling the main function

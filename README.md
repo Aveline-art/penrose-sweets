@@ -6,7 +6,11 @@ penrose-sweets is a commandline program that compiles ingredient lists from onli
 
 Most of the recipes are parsed through Python programs in the RecipeParsers directory, with each file named after a food blog domain, such as `justonecookbook` or `cookieandkate`. Each file is a specific parser for that domain, since HTML code is structured differently, even if slightly, across domains. If a domain is unsupported, the parser can still parse through a general parser, which returns less accurate results than the dedicated parsers.
 
-Future iterations of this will use a database to support caching of results, be turned into using a web interfact, and allow requesting or updated parsers based on user data.
+To speed up operations, and to allow this to be used offline (albeit in a limited capacity), links that were previous entered are cached in a JSON file. This file updates as new links are entered and the user verified that the grocery list appears correct.
+
+Another JSON list is used, containing key words for select ingredients, so that the same ingredient can be aggregated, massively condensing the list when multiple recipes are entered.
+
+Future iterations of this will use a database to support caching of results, be turned into using a web interface, and allow requesting or updated parsers based on user data.
 
 ### Usage:
 
