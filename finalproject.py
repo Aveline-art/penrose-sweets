@@ -3,7 +3,7 @@ import sys
 from bs4 import BeautifulSoup
 from datetime import datetime
 import json
-from RecipeParsers import bingingwithbabish, cookieandkate, generalparse, gordonramsay, justonecookbook, maangchi, seriouseats, tasty, woksoflife
+from RecipeParsers import bingingwithbabish, cookieandkate, generalparse, gordonramsay, justonecookbook, seriouseats, tasty, woksoflife
 import requests
 from urllib.parse import urlparse
 
@@ -12,22 +12,24 @@ parsers = {
     'cookieandkate.com': lambda x: cookieandkate.parse(x),
     'www.gordonramsay.com': lambda x: gordonramsay.parse(x),
     'www.justonecookbook.com': lambda x: justonecookbook.parse(x),
-    'www.maangchi.com': lambda x: maangchi.parse(x),
     'www.seriouseats.com': lambda x: seriouseats.parse(x),
     'tasty.co': lambda x: tasty.parse(x),
     'thewoksoflife.com': lambda x: woksoflife.parse(x),
 }
 
+
+cache_ingredients = {}
+try:
+    with open('ingredients.json', 'r', encoding='utf8') as f:
+        cache_ingredients = json.loads(f.read())
+except:
+    pass
+
 def main(argvs):
     grocery_list = []
     url_list = []
-    cache_ingredients = {}
-    try:
-        with open('ingredients.json', 'r', encoding='utf8') as f:
-            cache_ingredients = json.loads(f.read())
-    except:
-        pass
 
+    print('Getting all ingredients...')
     for url in argvs:
         ingredients = cache_ingredients.get(url) or retrieve_ingredients(url)
         if ingredients:
@@ -36,12 +38,12 @@ def main(argvs):
         else:
             print(f'Could not find ingredients for {url}.')
     
-    assessment = assess_list(grocery_list, url_list, 'does the list appears to be correct? (y/n)')
+    assessment = assess_list(grocery_list, url_list, 'Does this grocery list for all your recipes appear to be correct? (y/n)')
     if assessment:
         create_list(grocery_list, url_list)
         return
     
-    print('redownloading recipe...')
+    print('Redownloading recipe...')
     grocery_list = []
     url_list = []
     for url in argvs:
@@ -69,11 +71,15 @@ def retrieve_ingredients(url):
 
         if domain in parsers.keys():
             ingredients = parsers[domain](soup)
+            return ingredients
         else:
+            print(f'Could not find a parser for {domain}. Using a general parser.')
             ingredients = generalparse.parse(soup)
-        return ingredients
-    else:
-        return None
+            if ingredients:
+                assessment = assess_list([ingredients], [url], f'Does this list look okay for the recipe from {url}? (y/n)')
+                if assessment:
+                    return ingredients
+    return None
 
 def create_list(grocery_list, links):
     print('Creating grocery list.')
@@ -106,11 +112,11 @@ def assess_list(grocery_list, url_list, message):
     while(True):
         is_correct = input(message)
         if is_correct == 'y':
-            dict = {}
+            print('Saving list')
             for i, url in enumerate(url_list):
-                    dict[url] = grocery_list[i]
+                    cache_ingredients[url] = grocery_list[i]
             with open('ingredients.json', 'w', encoding='utf8') as f:
-                f.write(json.dumps(dict))
+                f.write(json.dumps(cache_ingredients))
             return True
         elif is_correct == 'n':
             return False
