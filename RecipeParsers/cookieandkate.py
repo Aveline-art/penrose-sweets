@@ -7,4 +7,4 @@ def parse(soup):
 
     for item in json.loads(recipe_json.text)['@graph']:
         if type(item) is dict and 'recipeIngredient' in item.keys():
-            return [ingredient.replace('\xa0', ' ').strip() for ingredient in item['recipeIngredient']]
+            return [ingredient.replace('\xa0', ' ').replace('&#8230;', '...').strip() for ingredient in item['recipeIngredient']]

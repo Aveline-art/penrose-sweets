@@ -8,8 +8,6 @@ Most of the recipes are parsed through Python programs in the RecipeParsers dire
 
 To speed up operations, and to allow this to be used offline (albeit in a limited capacity), links that were previous entered are cached in a JSON file. This file updates as new links are entered and the user verified that the grocery list appears correct.
 
-Another JSON list is used, containing key words for select ingredients, so that the same ingredient can be aggregated, massively condensing the list when multiple recipes are entered.
-
 Future iterations of this will use a database to support caching of results, be turned into using a web interface, and allow requesting or updated parsers based on user data.
 
 ### Usage:
