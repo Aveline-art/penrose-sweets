@@ -12,7 +12,7 @@ To speed up operations, and to allow this to be used offline (albeit in a limite
 
 - `add <url>`: finds the ingredients for the recipe from the specified url with a parser and save it into the cache if it does not already exist
 - `update <url>`: finds the ingredients for the recipe from the specified url with a parser and updates the ingredients in our cache
-- `groceries <urls...>`: finds all the ingredients for the recipes from the specified url and save them into a .txt file
+- `groceries <urls...>`: finds all the ingredients for the recipes from the specified url through the cache, if they exist, or a parser and save them into a .txt file
 
 ### Example usage:
 
