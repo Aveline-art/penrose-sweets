@@ -14,15 +14,17 @@ def main(command, argvs):
 
 
 def add(url):
-    recipe = Recipe(url)
-    ingredients = recipe.find_ingredients()
-    if (recipe.verify_ingredients(ingredients)):
-        recipe.set_ingredients(ingredients)
-        ingredient_storage = IngredientStorage()
-        ingredient_storage.save_list()
-        print('Successfully added ingredients')
+    ingredient_storage = IngredientStorage()
+    if (ingredient_storage.get_ingredients(url)):
+        print('Ingredients already in our cache')
     else:
-        print('exiting...')
+        recipe = create_recipe(url)
+        if recipe:
+            ingredient_storage.add_ingredients(recipe)
+            ingredient_storage.save_list()
+            print('Successfully added ingredients')
+        else:
+            print('exiting...')
 
 def update(url):
     ingredient_storage = IngredientStorage()
@@ -31,9 +33,16 @@ def update(url):
     while (True):
         reply = input('Do you want to proceed? (y/n)')
         if reply == 'y':
-            add(url)
-            return
+            recipe = create_recipe(url)
+            if recipe:
+                ingredient_storage.add_ingredients(recipe)
+                ingredient_storage.save_list()
+                print('Successfully added ingredients')
+                return
+            else:
+                print('exiting...')
         elif reply == 'n':
+            print('exiting...')
             return
 
 def groceries(urls):
@@ -59,6 +68,17 @@ def groceries(urls):
     reply = grocery_list.verify_list()
     if reply:
         grocery_list.create_txt()
+
+
+# Helpers
+def create_recipe(url):
+    recipe = Recipe(url)
+    ingredients = recipe.find_ingredients()
+    if (recipe.verify_ingredients(ingredients)):
+        recipe.set_ingredients(ingredients)
+        return recipe
+    else:
+        return None
     
 
 if __name__ == "__main__":
