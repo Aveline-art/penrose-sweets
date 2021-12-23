@@ -8,8 +8,6 @@ Most of the recipes are parsed through Python programs in the RecipeParsers dire
 
 To speed up operations, and to allow this to be used offline (albeit in a limited capacity), links that were previous entered are cached in a JSON file. This file updates as new links are entered and the user verified that the grocery list appears correct.
 
-Future iterations of this will use a database to support caching of results, be turned into using a web interface, and allow requesting or updated parsers based on user data.
-
 ### Usage:
 
 ```
@@ -27,3 +25,11 @@ python finalproject.py https://www.justonecookbook.com/simple-chicken-curry/
 ```
 python finalproject.py https://www.justonecookbook.com/simple-chicken-curry/ https://cookieandkate.com/healthy-banana-bread-recipe/
 ```
+
+### Planned Improvements (no specific order)
+
+- unittests
+- replace JSON file caching with database caching
+- turn this into a webapp with python backend
+- web-based form to request new or update to parsers
+- use user data to find out what parsers are missing

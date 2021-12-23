@@ -19,6 +19,8 @@ def main(argvs):
                 grocery_list.add_recipe(recipe)
                 ingredient_storage.add_ingredients(recipe)
                 ingredient_storage.save_list()
+            else:
+                print('Sorry, we could not find a list for this recipe. Feel free file a report on our repository.')
     
     reply = grocery_list.verify_list()
     if reply:
