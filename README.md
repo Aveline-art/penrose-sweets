@@ -10,18 +10,18 @@ To speed up operations, and to allow this to be used offline (albeit in a limite
 
 ### Commands:
 
-`add <url>`: finds the ingredients for the recipe from the specified url with a parser and save it into the cache if it does not already exist
-`update <url>`: finds the ingredients for the recipe from the specified url with a parser and updates the ingredients in our cache
-`groceries <urls...>`: finds all the ingredients for the recipes from the specified url and save them into a .txt file
+- `add <url>`: finds the ingredients for the recipe from the specified url with a parser and save it into the cache if it does not already exist
+- `update <url>`: finds the ingredients for the recipe from the specified url with a parser and updates the ingredients in our cache
+- `groceries <urls...>`: finds all the ingredients for the recipes from the specified url and save them into a .txt file
 
 ### Example usage:
 
-#### For getting the grocery list one recipe
+#### For getting the grocery list for one recipe
 ```
 python finalproject.py groceries https://www.justonecookbook.com/simple-chicken-curry/
 ```
 
-#### For getting the grocery list multiple recipes
+#### For getting the grocery list for multiple recipes
 ```
 python finalproject.py groceries https://www.justonecookbook.com/simple-chicken-curry/ https://cookieandkate.com/healthy-banana-bread-recipe/
 ```
@@ -32,4 +32,4 @@ python finalproject.py groceries https://www.justonecookbook.com/simple-chicken-
 - replace JSON file caching with database caching
 - turn this into a webapp with python backend
 - web-based form to request new or update to parsers
-- use user data to find out what parsers are missing
+- use collected user data to find out what parsers are missing
