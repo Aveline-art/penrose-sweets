@@ -8,22 +8,22 @@ Most of the recipes are parsed through Python programs in the RecipeParsers dire
 
 To speed up operations, and to allow this to be used offline (albeit in a limited capacity), links that were previous entered are cached in a JSON file. This file updates as new links are entered and the user verified that the grocery list appears correct.
 
-### Usage:
+### Commands:
 
-```
-python finalproject.py <url ...>
-```
+`add <url>`: finds the ingredients for the recipe from the specified url with a parser and save it into the cache if it does not already exist
+`update <url>`: finds the ingredients for the recipe from the specified url with a parser and updates the ingredients in our cache
+`groceries <urls...>`: finds all the ingredients for the recipes from the specified url and save them into a .txt file
 
 ### Example usage:
 
-#### For one recipe
+#### For getting the grocery list one recipe
 ```
-python finalproject.py https://www.justonecookbook.com/simple-chicken-curry/
+python finalproject.py groceries https://www.justonecookbook.com/simple-chicken-curry/
 ```
 
-#### For multiple recipes
+#### For getting the grocery list multiple recipes
 ```
-python finalproject.py https://www.justonecookbook.com/simple-chicken-curry/ https://cookieandkate.com/healthy-banana-bread-recipe/
+python finalproject.py groceries https://www.justonecookbook.com/simple-chicken-curry/ https://cookieandkate.com/healthy-banana-bread-recipe/
 ```
 
 ### Planned Improvements (no specific order)
