@@ -2,11 +2,45 @@ import sys
 
 from penrose import GroceryList, IngredientStorage, Recipe
 
-def main(argvs):
+def main(command, argvs):
+    if command == 'add':
+        add(argvs[0])
+    elif command == 'groceries':
+        groceries(argvs)
+    elif command == 'update':
+        update(argvs[0])
+    else:
+        print(f'Do not recognize command {command}')
+
+
+def add(url):
+    recipe = Recipe(url)
+    ingredients = recipe.find_ingredients()
+    if (recipe.verify_ingredients(ingredients)):
+        recipe.set_ingredients(ingredients)
+        ingredient_storage = IngredientStorage()
+        ingredient_storage.save_list()
+        print('Successfully added ingredients')
+    else:
+        print('exiting...')
+
+def update(url):
+    ingredient_storage = IngredientStorage()
+    ingredient_storage.print_ingredients(url)
+    print('\n')
+    while (True):
+        reply = input('Do you want to proceed? (y/n)')
+        if reply == 'y':
+            add(url)
+            return
+        elif reply == 'n':
+            return
+
+def groceries(urls):
     ingredient_storage = IngredientStorage()
     grocery_list = GroceryList()
 
-    for url in argvs:
+    for url in urls:
         ingredients = ingredient_storage.get_ingredients(url)
         if ingredients:
             recipe = Recipe(url, ingredients)
@@ -29,4 +63,4 @@ def main(argvs):
 
 if __name__ == "__main__":
     # calling the main function
-    main(sys.argv[1:])
+    main(sys.argv[1], sys.argv[2:])

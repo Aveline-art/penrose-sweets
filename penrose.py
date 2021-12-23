@@ -76,6 +76,17 @@ class IngredientStorage:
     
     def get_ingredients(self, url):
         return self.cache_ingredients.get(url)
+    
+    def print_ingredients(self, url):
+        ingredients = self.get_ingredients(url)
+        if ingredients:
+            print('\n')
+            print(f'Ingredient List for {url} in our cache')
+            print('---')
+            for ingredient in ingredients:
+                print(ingredient)
+        else:
+            print('No ingredients found.')
 
     def save_list(self):
         with open('ingredients.json', 'w', encoding='utf8') as f:
