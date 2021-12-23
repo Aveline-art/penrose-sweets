@@ -28,22 +28,26 @@ def add(url):
 
 def update(url):
     ingredient_storage = IngredientStorage()
-    ingredient_storage.print_ingredients(url)
-    print('\n')
-    while (True):
-        reply = input('Do you want to proceed? (y/n)')
-        if reply == 'y':
-            recipe = create_recipe(url)
-            if recipe:
-                ingredient_storage.add_ingredients(recipe)
-                ingredient_storage.save_list()
-                print('Successfully added ingredients')
-                return
-            else:
+    if (ingredient_storage.get_ingredients(url)):
+        ingredient_storage.print_ingredients(url)
+        print('\n')
+        while (True):
+            reply = input('Does this list look correct? (y/n)')
+            if reply == 'y':
                 print('exiting...')
-        elif reply == 'n':
-            print('exiting...')
-            return
+                return
+            elif reply == 'n':
+                recipe = create_recipe(url)
+                if recipe:
+                    ingredient_storage.add_ingredients(recipe)
+                    ingredient_storage.save_list()
+                    print('Successfully added ingredients')
+                    return
+                else:
+                    print('exiting...')
+                    return
+    else:
+        print('Link not in our cache.')
 
 def groceries(urls):
     ingredient_storage = IngredientStorage()
