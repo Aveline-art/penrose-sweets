@@ -1,5 +1,4 @@
 # penrose-sweets
-### Video Demo:  <URL HERE>
 ### Description:
 
 penrose-sweets is a commandline program that compiles ingredient lists from online recipes into a single grocery list. Written with Python 3.9, it takes advantage of BeautifulSoup4 to comb through a website for either a JSON file embedded in a `<script>` tag or for key words, such as `Ingredients` that clues for an ingredient list HTML object (usually in `<ul>` tags).
