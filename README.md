@@ -42,7 +42,7 @@ python finalproject.py groceries https://www.justonecookbook.com/simple-chicken-
 - web-based form to request new or update to parsers
 - use collected user data to find out what parsers are missing
 
-### Questions
+### Questions:
 
 #### Why is this program useful?
   
