@@ -25,9 +25,17 @@ python finalproject.py groceries https://www.justonecookbook.com/simple-chicken-
 ```
 python finalproject.py groceries https://www.justonecookbook.com/simple-chicken-curry/ https://cookieandkate.com/healthy-banana-bread-recipe/
 ```
+  
+### Brief Architecture Summary:
 
-### Planned Improvements (no specific order)
+- `RecipeParsers/`: This directory contains various files for parsing recipes from specific domains. It also contains a general parser if the parser for the specific domain does not exist.
+- `finalproject.py`: The entry point for the program. This contains the logic for parsing the commands entered in the commandline and running the correct sequence of events based on the commands.
+- `penrose.py`: Contains classes for creating objects used by the entry point file. These classes turns abstract concepts, such as recipe, into much more manageable Python objects.
+- `requirements.txt`: A Python convention file that stores all the dependencies needed for the program to run. To install the dependencies through pip, run `pip install -r requirements.txt`.
 
+### Planned Improvements (no specific order):
+
+- add usage notes when commands are used incorrectly
 - unittests
 - replace JSON file caching with database caching
 - turn this into a webapp with python backend
